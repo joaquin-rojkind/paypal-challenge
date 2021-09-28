@@ -11,7 +11,7 @@
         <relativePath/>
     </parent>
 
-    <groupId>org.paypal</groupId>
+    <groupId>org.example</groupId>
     <artifactId>paypal-challenge</artifactId>
     <version>1.0-SNAPSHOT</version>
 
@@ -24,6 +24,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.12.0</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

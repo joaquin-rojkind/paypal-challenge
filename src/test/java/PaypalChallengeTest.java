@@ -118,8 +118,12 @@ public class PaypalChallengeTest {
 		List<Integer[]> results = paypalChallenge.fourNumberSum(input, targetSum);
 		List<int[]> resultsAsInt = convertToListOfIntArrays(results);
 
+		// ensure that we're comparing sorted arrays since order of elements matter
+		sortArraysInList(resultsAsInt);
+		sortArraysInList(expectedMatches);
+
 		assertThat(expectedMatches.size()).isEqualTo(results.size());
-		expectedMatches.forEach(match -> {
+		expectedMatches.stream().forEach(match -> {
 			assertThat(
 				// for every result check for any match within the expected matches
 				resultsAsInt.stream().anyMatch(result -> Arrays.equals(match, result))
@@ -127,12 +131,16 @@ public class PaypalChallengeTest {
 		});
 	}
 
+	private void sortArraysInList(List<int[]> listOfArrays) {
+		listOfArrays.forEach(array -> Arrays.sort(array));
+	}
+
 	/**
 	 * Ideally this method should not be needed. It would be easier to declare the expected matches in the
 	 * data provider as Integer arrays. However, this poses a problem, when there's one single expected match
-	 * the method Arrays.asList(...) will create a list of the array's elements instead of a list with
-	 * the array itself. I'd rather not sacrifice legibility and simpleness in the data provider by having to
-	 * declare the lists on separate lines each, in the traditional way.
+	 * (e.g. test case #2) the method Arrays.asList(...) will create a list of the array's elements instead of
+	 * a list with the array itself. I'd rather not sacrifice legibility and simpleness in the data provider by
+	 * having to declare the lists on separate lines each, in the traditional way.
 	 */
 	private List<int[]> convertToListOfIntArrays(List<Integer[]> listOfIntegerArrays) {
 		return listOfIntegerArrays.stream()
